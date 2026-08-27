@@ -3,9 +3,13 @@ const MODES = {
   sign:  { w: 300, h: 80,  maxKB: 60,  name: 'signature-300x80.jpg' }
 };
 let mode = 'photo';
+let cropper = null;
 
 const drop = document.getElementById('drop');
 const fileInput = document.getElementById('file');
+const cropArea = document.getElementById('cropArea');
+const cropImg = document.getElementById('cropImg');
+const actions = document.getElementById('actions');
 const result = document.getElementById('result');
 const preview = document.getElementById('preview');
 const dims = document.getElementById('dims');
@@ -18,42 +22,52 @@ document.querySelectorAll('.tab').forEach(btn => {
     document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mode = btn.dataset.mode;
-    result.hidden = true;
-    drop.hidden = false;
+    if (cropper) cropper.setAspectRatio(MODES[mode].w / MODES[mode].h);
   });
 });
 
 drop.addEventListener('click', () => fileInput.click());
-drop.addEventListener('dragover', e => { e.preventDefault(); });
+drop.addEventListener('dragover', e => e.preventDefault());
 drop.addEventListener('drop', e => {
   e.preventDefault();
-  if (e.dataTransfer.files[0]) process(e.dataTransfer.files[0]);
+  if (e.dataTransfer.files[0]) startCrop(e.dataTransfer.files[0]);
 });
-fileInput.addEventListener('change', () => { if (fileInput.files[0]) process(fileInput.files[0]); });
-document.getElementById('again').addEventListener('click', () => {
-  result.hidden = true; drop.hidden = false; fileInput.value = '';
-});
+fileInput.addEventListener('change', () => { if (fileInput.files[0]) startCrop(fileInput.files[0]); });
 
-async function process(file) {
-  const img = await loadImage(file);
+function startCrop(file) {
+  cropImg.src = URL.createObjectURL(file);
+  drop.hidden = true;
+  result.hidden = true;
+  cropArea.hidden = false;
+  actions.hidden = false;
+  if (cropper) cropper.destroy();
+  cropper = new Cropper(cropImg, {
+    aspectRatio: MODES[mode].w / MODES[mode].h,
+    viewMode: 1,
+    dragMode: 'move',
+    autoCropArea: 1,
+    background: false
+  });
+}
+
+document.getElementById('zoomIn').addEventListener('click', () => cropper && cropper.zoom(0.1));
+document.getElementById('zoomOut').addEventListener('click', () => cropper && cropper.zoom(-0.1));
+document.getElementById('cancel').addEventListener('click', resetAll);
+document.getElementById('again').addEventListener('click', resetAll);
+
+function resetAll() {
+  if (cropper) { cropper.destroy(); cropper = null; }
+  cropArea.hidden = true;
+  actions.hidden = true;
+  result.hidden = true;
+  drop.hidden = false;
+  fileInput.value = '';
+}
+
+document.getElementById('apply').addEventListener('click', async () => {
+  if (!cropper) return;
   const { w, h, maxKB, name } = MODES[mode];
-
-  const targetRatio = w / h;
-  const imgRatio = img.width / img.height;
-  let sw, sh, sx, sy;
-  if (imgRatio > targetRatio) {
-    sh = img.height; sw = sh * targetRatio;
-    sy = 0; sx = (img.width - sw) / 2;
-  } else {
-    sw = img.width; sh = sw / targetRatio;
-    sx = 0; sy = (img.height - sh) / 2;
-  }
-
-  const canvas = document.createElement('canvas');
-  canvas.width = w; canvas.height = h;
-  const ctx = canvas.getContext('2d');
-  ctx.imageSmoothingQuality = 'high';
-  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+  const canvas = cropper.getCroppedCanvas({ width: w, height: h, imageSmoothingQuality: 'high' });
 
   let quality = 0.92, blob;
   do {
@@ -71,19 +85,10 @@ async function process(file) {
   download.href = url;
   download.download = name;
 
-  drop.hidden = true;
+  cropArea.hidden = true;
+  actions.hidden = true;
   result.hidden = false;
-}
-
-function loadImage(file) {
-  return new Promise((res, rej) => {
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = () => res(img);
-    img.onerror = rej;
-    img.src = url;
-  });
-}
+});
 
 function toBlob(canvas, quality) {
   return new Promise(res => canvas.toBlob(b => res(b), 'image/jpeg', quality));
