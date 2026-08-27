@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ইমেজ কমপ্রেসর — নির্দিষ্ট KB এ ছবি ছোট করুন | সহজটুলস</title>
+<meta name="description" content="যেকোনো ছবি 100KB, 60KB, 50KB বা নিজের পছন্দমতো KB এ কমপ্রেস করুন। ফ্রি, ওয়াটারমার্ক ছাড়া, ছবি ডিভাইস থেকে কোথাও যায় না।">
+<meta property="og:site_name" content="সহজটুলস">
+<meta property="og:title" content="ইমেজ কমপ্রেসর — নির্দিষ্ট KB এ ছবি ছোট করুন">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://sohojtools.github.io/tools/image-compressor/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"ইমেজ কমপ্রেসর","url":"https://sohojtools.github.io/tools/image-compressor/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"BDT"}}
+</script>
+</head>
+<body>
+<header><a class="logo" href="/">সহজটুলস</a></header>
+<main class="tool">
+<h1>ইমেজ কমপ্রেসর</h1>
+<p class="sub">যেকোনো ছবি নির্দিষ্ট KB এ ছোট করুন — কোয়ালিটি自动 adjust হবে।</p>
+
+<div class="drop" id="drop">
+  <p>ছবি এখানে টেনে আনুন<br><span>অথবা ক্লিক করে বেছে নিন (JPG/PNG)</span></p>
+  <input type="file" id="file" accept="image/*" hidden>
+</div>
+
+<div class="kb-row" id="kbRow">
+  <span>Target:</span>
+  <button class="kb-btn active" data-kb="100">100KB</button>
+  <button class="kb-btn" data-kb="60">60KB</button>
+  <button class="kb-btn" data-kb="50">50KB</button>
+  <button class="kb-btn" data-kb="20">20KB</button>
+  <input type="number" id="customKb" placeholder="অন্য KB" min="1">
+</div>
+
+<div class="result" id="result" hidden>
+  <div class="preview-box"><img id="preview" alt="preview"></div>
+  <div class="info">
+    <p>আগে: <b id="origSize">—</b></p>
+    <p>এখন: <b id="newSize">—</b> <span id="saved"></span></p>
+    <a id="download" class="btn" download>ডাউনলোড করুন</a>
+    <button id="again" class="btn ghost">অন্য ছবি</button>
+  </div>
+</div>
+
+<p class="privacy">🔒 আপনার ছবি ব্রাউজারেই প্রসেস হয় — সার্ভারে আপলোড হয় না।</p>
+</main>
+<footer>© 2026 সহজটুলস · ফ্রি বাংলা অনলাইন টুলস</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
