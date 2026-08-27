@@ -13,3 +13,10 @@ h1{font-size:32px;margin-bottom:10px}
 .card p{color:var(--muted);font-size:14px}
 .badge{display:inline-block;background:#e6f6f0;color:var(--brand);font-size:12px;padding:2px 10px;border-radius:99px;margin-bottom:8px}
 footer{text-align:center;color:var(--muted);padding:30px;font-size:14px}
+.card.soon{opacity:.65;cursor:default}
+.card.soon:hover{transform:none;border-color:#e6e9f0}
+.badge.soon{background:#eef1f6;color:var(--muted)}
+footer a{color:var(--muted)}
+.page{max-width:720px}
+.page h2{margin:24px 0 8px}
+.page p{margin-bottom:10px;color:var(--muted)}
