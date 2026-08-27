@@ -41,6 +41,20 @@ document.getElementById('again').addEventListener('click', () => {
 function handle(file){ currentFile = file; compress(file); }
 
 async function compress(file){
+  // Already under target → original file, zero quality loss
+  if (file.size <= targetKB * 1024) {
+    const url = URL.createObjectURL(file);
+    preview.src = url;
+    origSize.textContent = fmt(file.size);
+    newSize.textContent = fmt(file.size);
+    saved.textContent = '✓ আগে থেকেই লিমিটের নিচে — আসল ফাইল';
+    download.href = url;
+    download.download = file.name || 'image.jpg';
+    drop.hidden = true;
+    result.hidden = false;
+    return;
+  }
+
   const img = await loadImage(file);
   let blob;
   for (let s = 1; s >= 0.2; s -= 0.15) {
@@ -50,10 +64,10 @@ async function compress(file){
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    let q = 0.92;
+    let q = 0.95;
     do {
       blob = await toBlob(canvas, q);
-      q -= 0.08;
+      q -= 0.07;
     } while (blob.size > targetKB*1024 && q > 0.1);
     if (blob.size <= targetKB*1024) break;
   }
@@ -62,7 +76,7 @@ async function compress(file){
   origSize.textContent = fmt(file.size);
   newSize.textContent = fmt(blob.size);
   const pct = Math.round((1 - blob.size/file.size)*100);
-  saved.textContent = pct > 0 ? ('−'+pct+'%') : '';
+  saved.textContent = '−'+pct+'%';
   download.href = url;
   download.download = 'compressed-'+targetKB+'kb.jpg';
   drop.hidden = true;
