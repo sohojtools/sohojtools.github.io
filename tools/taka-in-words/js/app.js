@@ -1,38 +1,94 @@
-const ONES = ['শূন্য','এক','দুই','তিন','চার','পাঁচ','ছয়','সাত','আট','নয়','দশ','এগারো','বারো','তেরো','চৌদ্দ','পনেরো','ষোলো','সতেরো','আঠারো','উনিশ','বিশ','একুশ','বাইশ','তেইশ','চব্বিশ','পঁচিশ','ছাব্বিশ','সাতাশ','আটাশ','ঊনত্রিশ','ত্রিশ','একত্রিশ','বত্রিশ','তেত্রিশ','চৌত্রিশ','পঁয়ত্রিশ','ছত্রিশ','সাতত্রিশ','আটত্রিশ','ঊনচল্লিশ','চল্লিশ','একচল্লিশ','বিয়াল্লিশ','তেতাল্লিশ','চুয়াল্লিশ','পঁয়তাল্লিশ','ছেচল্লিশ','সাতচল্লিশ','আটচল্লিশ','ঊনপঞ্চাশ','পঞ্চাশ','একান্ন','বাহান্ন','তিপ্পান্ন','চুয়ান্ন','পঞ্চান্ন','ছাপ্পান্ন','সাতান্ন','আটান্ন','ঊনষাট','ষাট','একষট্টি','বাষট্টি','তেষট্টি','চৌষট্টি','পঁয়ষট্টি','ছেষট্টি','সাতষট্টি','আটষট্টি','ঊনসত্তর','সত্তর','একাত্তর','বাহাত্তর','তিয়াত্তর','চুয়াত্তর','পঁচাত্তর','ছিয়াত্তর','সাতাত্তর','আটাত্তর','ঊনআশি','আশি','একাশি','বিরাশি','তিরাশি','চুরাশি','পঁচাশি','ছিয়াশি','সাতাশি','আটাশি','ঊননব্বই','নব্বই','একানব্বই','বিরানব্বই','তিরানব্বই','চুরানব্বই','পঁচানব্বই','ছিয়ানব্বই','সাতানব্বই','আটানব্বই','নিরানব্বই'];
+const $ = id => document.getElementById(id);
+const NW = window.NumberWordsBN;
+const amount = $('amount'), words = $('words'), err = $('err');
+const preview = $('preview'), previewNum = $('previewNum');
+const matraToggle = $('matraToggle'), bnToggle = $('bnToggle');
+const feedback = $('feedback');
+let lastWords = '', lastNum = '';
 
-function numWords(n){
-  if (n === 0) return '';
-  if (n < 100) return ONES[n];
-  if (n < 1000) return ONES[Math.floor(n/100)] + ' শত' + (n%100 ? ' ' + ONES[n%100] : '');
-  if (n < 100000) return numWords(Math.floor(n/1000)) + ' হাজার' + (n%1000 ? ' ' + numWords(n%1000) : '');
-  if (n < 10000000) return numWords(Math.floor(n/100000)) + ' লাখ' + (n%100000 ? ' ' + numWords(n%100000) : '');
-  return numWords(Math.floor(n/10000000)) + ' কোটি' + (n%10000000 ? ' ' + numWords(n%10000000) : '');
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  amount.value = c.dataset.v;
+  convert();
+}));
+amount.addEventListener('input', convert);
+matraToggle.addEventListener('change', convert);
+bnToggle.addEventListener('change', convert);
+
+function buildWords(intStr, poisha){
+  const t = parseInt(intStr, 10);
+  let out = '';
+  if (t > 0) out += NW.takaWords(intStr) + ' টাকা';
+  if (poisha > 0) out += (out ? ' ' : '') + NW.numWords(poisha) + ' পয়সা';
+  if (!out) out = 'শূন্য টাকা';
+  if (matraToggle.checked) out += ' মাত্র';
+  return out;
 }
 
-const amount = document.getElementById('amount');
-const words = document.getElementById('words');
-const copyBtn = document.getElementById('copyBtn');
+function convert(){
+  feedback.textContent = '';
+  const r = NW.normalize(amount.value);
+  if (r.empty){
+    err.hidden = true;
+    preview.hidden = true;
+    words.textContent = 'এখানে বাংলা কথায় লেখা দেখা যাবে…';
+    lastWords = ''; lastNum = '';
+    return;
+  }
+  if (!r.ok){
+    err.textContent = r.error; err.hidden = false;
+    preview.hidden = true;
+    lastWords = ''; lastNum = '';
+    return;
+  }
+  err.hidden = true;
+  lastWords = buildWords(r.int, r.poisha);
+  const grouped = NW.bdGroup(r.int) + (r.poisha ? '.' + String(r.poisha).padStart(2,'0') : '');
+  lastNum = (bnToggle.checked ? NW.toBn(grouped) : grouped);
+  previewNum.textContent = '৳ ' + lastNum;
+  preview.hidden = false;
+  words.textContent = lastWords;
+}
 
-amount.addEventListener('input', () => {
-  const clean = amount.value.replace(/[,\s]/g, '');
-  if (!clean) { words.textContent = 'এখানে বাংলা কথায় লেখা দেখা যাবে…'; return; }
-  if (!/^\d{1,15}(\.\d{1,2})?$/.test(clean)) { words.textContent = 'সঠিক সংখ্যা লিখুন (যেমন: 125000)'; return; }
-  const [taka, poisha] = clean.split('.');
-  const t = parseInt(taka, 10);
-  let out = (t === 0 ? 'শূন্য' : numWords(t)) + ' টাকা';
-  if (poisha && parseInt(poisha,10) > 0) out += ' ' + numWords(parseInt(poisha,10)) + ' পয়সা';
-  out += ' মাত্র';
-  words.textContent = out;
-});
+$('copyBtn').addEventListener('click', () => copyText(lastWords));
+$('copyBothBtn').addEventListener('click', () => copyText('৳ ' + lastNum + '\n' + lastWords));
 
-copyBtn.addEventListener('click', async () => {
-  const text = words.textContent;
-  if (text.includes('…') || text.includes('সঠিক')) return;
+async function copyText(text){
+  if (!text){ feedback.textContent = 'আগে একটি বৈধ পরিমাণ লিখুন।'; return; }
   try {
     await navigator.clipboard.writeText(text);
-    copyBtn.textContent = 'কপি হয়েছে ✓';
-    setTimeout(() => copyBtn.textContent = 'কপি করুন', 1500);
-  } catch(e) {
-    copyBtn.textContent = 'কপি হয়নি — নিজে select করুন';
+    feedback.textContent = 'কপি হয়েছে।';
+  } catch(e){
+    feedback.textContent = 'কপি করা যায়নি। ফলাফলটি নির্বাচন করে কপি করুন।';
   }
+}
+
+$('resetBtn').addEventListener('click', () => {
+  amount.value = '';
+  err.hidden = true;
+  preview.hidden = true;
+  words.textContent = 'এখানে বাংলা কথায় লেখা দেখা যাবে…';
+  feedback.textContent = '';
+  lastWords = ''; lastNum = '';
+  amount.focus();
 });
+
+$('advBtn').addEventListener('click', () => {
+  const open = $('advPanel').hidden;
+  $('advPanel').hidden = !open;
+  $('advBtn').setAttribute('aria-expanded', open);
+});
+
+/* examples table — generated from the same converter logic */
+(function(){
+  const rows = [1000, 10000, 100000, 125000, 10000000];
+  const body = $('exBody');
+  rows.forEach(v => {
+    const tr = document.createElement('tr');
+    const td1 = document.createElement('td');
+    td1.textContent = NW.toBn(NW.bdGroup(String(v)));
+    const td2 = document.createElement('td');
+    td2.textContent = NW.takaWords(String(v)) + ' টাকা';
+    tr.appendChild(td1); tr.appendChild(td2);
+    body.appendChild(tr);
+  });
+})();

@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>টাকার অঙ্ক কথায় — বাংলায় চেক ও ফর্মের জন্য | সহজটুলস</title>
-<meta name="description" content="যেকোনো টাকার অঙ্ক বাংলা কথায় লিখুন — চেক, আবেদন ও চুক্তিপত্রের জন্য। কোটি-লাখ-হাজার সিস্টেমে নির্ভুল। ফ্রি বাংলা টুল।">
+<title>টাকার অঙ্ক কথায় | টাকা কথায় লেখার টুল | সহজটুলস</title>
+<meta name="description" content="যেকোনো টাকার অঙ্ক বাংলা কথায় — কোটি-লাখ-হাজার সিস্টেমে। ব্যাংক চেক, আবেদন ও চুক্তিপত্রের জন্য। দশমিক (পয়সা) সহ। ফ্রি বাংলা টুল।">
 <meta property="og:site_name" content="সহজটুলস">
-<meta property="og:title" content="টাকার অঙ্ক কথায় — বাংলায় চেক ও ফর্মের জন্য">
+<meta property="og:title" content="টাকার অঙ্ক কথায় | টাকা কথায় লেখার টুল">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/taka-in-words/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
@@ -33,25 +34,79 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>টাকার অঙ্ক কথায়</h1>
-<p class="sub">চেক, আবেদন ও চুক্তিপত্রে লেখার জন্য — কোটি-লাখ সিস্টেমে নির্ভুল।</p>
+<p class="sub">চেক, আবেদন ও চুক্তিপত্রে লেখার জন্য — কোটি-লাখ সিস্টেমে টাকার অঙ্ক নির্ভুল বাংলায় লিখুন।</p>
 
 <div class="calc">
-  <div class="field"><label>টাকার পরিমাণ</label><input type="text" id="amount" inputmode="numeric" placeholder="যেমন: 125000"></div>
-  <div class="words" id="words">এখানে বাংলা কথায় লেখা দেখা যাবে…</div>
-  <button class="btn" id="copyBtn">কপি করুন</button>
+  <div class="field">
+    <label for="amount">টাকার পরিমাণ</label>
+    <div class="money-wrap">
+      <input type="text" id="amount" inputmode="decimal" placeholder="যেমন: 125000 বা ১,২৫,০০০" autocomplete="off">
+      <span class="currency" aria-hidden="true">৳</span>
+    </div>
+    <p class="hint">দশমিক থাকলে পয়সাসহ ফলাফল দেখানো হবে।</p>
+    <p class="f-err" id="err" hidden></p>
+  </div>
+  <div class="quick" role="group" aria-label="দ্রুত পরিমাণ">
+    <button class="chip" data-v="1000" type="button">১,০০০</button>
+    <button class="chip" data-v="10000" type="button">১০,০০০</button>
+    <button class="chip" data-v="100000" type="button">১,০০,০০০</button>
+    <button class="chip" data-v="10000000" type="button">১০,০০,০০০</button>
+  </div>
+  <p class="preview" id="preview" hidden>অঙ্কে: <b id="previewNum">—</b></p>
+</div>
+
+<div class="result" id="result">
+  <h2>কথায়</h2>
+  <p class="words" id="words" aria-live="polite">এখানে বাংলা কথায় লেখা দেখা যাবে…</p>
+  <div class="btn-row">
+    <button class="btn" id="copyBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      কপি করুন
+    </button>
+    <button class="btn ghost" id="copyBothBtn" type="button">অঙ্ক ও কথায় কপি করুন</button>
+    <button class="btn ghost" id="resetBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      মুছে ফেলুন
+    </button>
+  </div>
+  <p class="feedback" id="feedback"></p>
+
+  <button class="adv-toggle" id="advBtn" aria-expanded="false" aria-controls="advPanel">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    অতিরিক্ত সেটিংস
+  </button>
+  <div class="adv-panel" id="advPanel" hidden>
+    <label class="switch"><input type="checkbox" id="matraToggle" checked> "টাকা মাত্র" যোগ করুন</label>
+    <label class="switch"><input type="checkbox" id="bnToggle" checked> অঙ্ক বাংলায় দেখান (১,২৫,০০০)</label>
+  </div>
 </div>
 
 <section class="guide">
-<h2>কোথায় লাগবে?</h2>
-<p>ব্যাংক চেক, সরকারি আবেদন, টেন্ডার ও চুক্তিপত্রে টাকার অঙ্ক কথায় লিখতে হয়। এই টুলটি কোটি-লাখ-হাজার সিস্টেমে সঠিক বাংলা বানানে লিখে দেয় — ভুলের চিন্তা নেই।</p>
+  <h2>কোথায় লাগবে?</h2>
+  <p>ব্যাংক চেক, সরকারি আবেদন, টেন্ডার ও চুক্তিপত্রে টাকার অঙ্ক কথায় লিখতে হয়। এই টুলটি কোটি-লাখ-হাজার সিস্টেমে সঠিক বাংলা বানানে লিখতে সাহায্য করে — ভুল কমাতে দ্রুত যাচাই করে নিতে পারেন।</p>
+  <h2>কীভাবে ব্যবহার করবেন?</h2>
+  <ol>
+    <li>টাকার পরিমাণ লিখুন</li>
+    <li>ফলাফল দেখুন</li>
+    <li>কপি করুন</li>
+  </ol>
+  <h2>কিছু উদাহরণ</h2>
+  <table class="ex-table">
+    <thead><tr><th>অঙ্ক</th><th>কথায়</th></tr></thead>
+    <tbody id="exBody"></tbody>
+  </table>
+  <h2>বাংলা সংখ্যা পদ্ধতি</h2>
+  <p>বাংলাদেশে কোটি-লাখ-হাজার-শত পদ্ধতিতে সংখ্যা গোষ্ঠীভুক্ত করা হয়: ১,২৫,০০,০০০ = এক কোটি পঁচিশ লাখ। এই টুলটি একই পদ্ধতি অনুসরণ করে।</p>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য সার্ভারে পাঠানো হয় না।</p>
 </section>
-
-<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
 </main>
+
 <footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
-<script src="js/app.js"></script>
 <script src="/js/main.js"></script>
+<script src="js/number-words.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
