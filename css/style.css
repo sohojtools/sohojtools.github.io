@@ -99,3 +99,12 @@ main{flex:1 0 auto}
 .page .tool-list{list-style:none;padding-left:0}
 .page .tool-list a{font-weight:600;font-size:14.5px;text-decoration:none}
 .page .tool-list a:hover{text-decoration:underline}
+
+/* article extras */
+.page table{width:100%;border-collapse:collapse;font-size:14.5px;margin:12px 0}
+.page th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border)}
+.page td{padding:8px;border-bottom:1px solid var(--border)}
+.note-box{background:rgba(217,119,6,.07);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--muted);margin:16px 0}
+.page .cta{margin:20px 0}
+.page .cta a{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px}
+.page .cta a:hover{background:var(--brand-hover)}
