@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>বয়স ক্যালকুলেটর — নির্ভুল বয়স হিসাব বাংলায় | সহজটুলস</title>
+<meta name="description" content="চাকরির আবেদন ও ফর্মের জন্য নির্ভুল বয়স হিসাব — বছর, মাস, দিন সহ। হিসাবের তারিখ (as on) নিজে বেছে নিন। ফ্রি বাংলা টুল।">
+<meta property="og:site_name" content="সহজটুলস">
+<meta property="og:title" content="বয়স ক্যালকুলেটর — নির্ভুল বয়স হিসাব বাংলায়">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://sohojtools.github.io/tools/age-calculator/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"বয়স ক্যালকুলেটর","url":"https://sohojtools.github.io/tools/age-calculator/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"BDT"}}
+</script>
+</head>
+<body>
+<header><div class="nav"><a class="logo" href="/"><span class="logo-dot"></span>সহজটুলস</a></div></header>
+<main class="tool">
+<h1>বয়স ক্যালকুলেটর</h1>
+<p class="sub">চাকরির ফর্ম ও আবেদনের জন্য নির্ভুল বয়স — "as on" তারিখ সহ।</p>
+
+<div class="calc">
+  <div class="field"><label>জন্ম তারিখ</label><input type="date" id="dob"></div>
+  <div class="field"><label>হিসাবের তারিখ (as on)</label><input type="date" id="asOn"></div>
+  <button class="btn" id="calcBtn">হিসাব করুন</button>
+  <p class="error" id="err" hidden>সঠিক তারিখ দিন — জন্ম তারিখ অবশ্যই হিসাবের তারিখের আগে হতে হবে।</p>
+</div>
+
+<div class="result" id="result" hidden>
+  <div class="age-big" id="ageBig"></div>
+  <div class="stats">
+    <div class="stat"><b id="stMonths">—</b><span>মোট মাস</span></div>
+    <div class="stat"><b id="stWeeks">—</b><span>মোট সপ্তাহ</span></div>
+    <div class="stat"><b id="stDays">—</b><span>মোট দিন</span></div>
+    <div class="stat"><b id="stBday">—</b><span>পরের জন্মদিন</span></div>
+  </div>
+</div>
+
+<section class="guide">
+<h2>কেন নির্ভুল বয়স দরকার?</h2>
+<p>সরকারি চাকরির আবেদনে বয়স হিসাব করা হয় একটি নির্দিষ্ট "as on" তারিখ অনুযায়ী — যেমন: ৩২ বছরের কম, ১ জানুয়ারি ২০২৬ পর্যন্ত। এই টুলে হিসাবের তারিখ বদলে আপনি ঠিক সেই বয়সটি পাবেন যা ফর্মে লিখতে হবে।</p>
+</section>
+
+<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
+</main>
+<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
