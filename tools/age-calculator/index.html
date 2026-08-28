@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>বয়স ক্যালকুলেটর — নির্ভুল বয়স হিসাব বাংলায় | সহজটুলস</title>
-<meta name="description" content="চাকরির আবেদন ও ফর্মের জন্য নির্ভুল বয়স হিসাব — বছর, মাস, দিন সহ। হিসাবের তারিখ (as on) নিজে বেছে নিন। ফ্রি বাংলা টুল।">
+<title>বয়স ক্যালকুলেটর | As On তারিখে বয়স হিসাব | সহজটুলস</title>
+<meta name="description" content="চাকরির আবেদন ও ফর্মের জন্য নির্ভুল বয়স হিসাব — বছর, মাস, দিন সহ। নির্দিষ্ট as on তারিখ অনুযায়ী বয়স বের করুন। ফ্রি বাংলা টুল।">
 <meta property="og:site_name" content="সহজটুলস">
-<meta property="og:title" content="বয়স ক্যালকুলেটর — নির্ভুল বয়স হিসাব বাংলায়">
+<meta property="og:title" content="বয়স ক্যালকুলেটর | As On তারিখে বয়স হিসাব">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/age-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
@@ -33,36 +34,83 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>বয়স ক্যালকুলেটর</h1>
-<p class="sub">চাকরির ফর্ম ও আবেদনের জন্য নির্ভুল বয়স — "as on" তারিখ সহ।</p>
+<p class="sub">চাকরির ফর্ম ও আবেদনের জন্য নির্ভুল বয়স বের করুন — নির্দিষ্ট "as on" তারিখ অনুযায়ী।</p>
 
 <div class="calc">
-  <div class="field"><label>জন্ম তারিখ</label><input type="date" id="dob"></div>
-  <div class="field"><label>হিসাবের তারিখ (as on)</label><input type="date" id="asOn"></div>
-  <button class="btn" id="calcBtn">হিসাব করুন</button>
-  <p class="error" id="err" hidden>সঠিক তারিখ দিন — জন্ম তারিখ অবশ্যই হিসাবের তারিখের আগে হতে হবে।</p>
+  <div class="field">
+    <label for="dob">জন্ম তারিখ</label>
+    <input type="date" id="dob" aria-describedby="dobErr">
+    <p class="f-err" id="dobErr" hidden></p>
+  </div>
+  <div class="field">
+    <label for="asOn">হিসাবের তারিখ (as on)</label>
+    <div class="asrow">
+      <input type="date" id="asOn" aria-describedby="asOnErr">
+      <button class="btn small ghost" id="todayBtn" type="button">আজকের তারিখ</button>
+    </div>
+    <p class="f-err" id="asOnErr" hidden></p>
+  </div>
+  <button class="btn" id="calcBtn" type="button">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+    হিসাব করুন
+  </button>
 </div>
 
 <div class="result" id="result" hidden>
+  <p class="asof-line" id="asOnLine"></p>
   <div class="age-big" id="ageBig"></div>
   <div class="stats">
-    <div class="stat"><b id="stMonths">—</b><span>মোট মাস</span></div>
-    <div class="stat"><b id="stWeeks">—</b><span>মোট সপ্তাহ</span></div>
-    <div class="stat"><b id="stDays">—</b><span>মোট দিন</span></div>
-    <div class="stat"><b id="stBday">—</b><span>পরের জন্মদিন</span></div>
+    <div class="stat"><b id="stY">—</b><span>বছর</span></div>
+    <div class="stat"><b id="stM">—</b><span>মাস</span></div>
+    <div class="stat"><b id="stD">—</b><span>দিন</span></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost" id="copyBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      ফলাফল কপি করুন
+    </button>
+    <button class="btn ghost" id="resetBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      রিসেট করুন
+    </button>
+  </div>
+  <p class="feedback" id="feedback"></p>
+
+  <button class="adv-toggle" id="moreBtn" aria-expanded="false" aria-controls="morePanel">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    আরও তথ্য
+  </button>
+  <div class="adv-panel" id="morePanel" hidden>
+    <div class="more-grid">
+      <div class="stat"><b id="stMonths">—</b><span>মোট মাস</span></div>
+      <div class="stat"><b id="stWeeks">—</b><span>মোট সপ্তাহ</span></div>
+      <div class="stat"><b id="stDays">—</b><span>মোট দিন</span></div>
+      <div class="stat"><b id="stBday">—</b><span>পরবর্তী জন্মদিন</span></div>
+    </div>
   </div>
 </div>
 
-<section class="guide">
-<h2>কেন নির্ভুল বয়স দরকার?</h2>
-<p>সরকারি চাকরির আবেদনে বয়স হিসাব করা হয় একটি নির্দিষ্ট "as on" তারিখ অনুযায়ী — যেমন: ৩২ বছরের কম, ১ জানুয়ারি ২০২৬ পর্যন্ত। এই টুলে হিসাবের তারিখ বদলে আপনি ঠিক সেই বয়সটি পাবেন যা ফর্মে লিখতে হবে।</p>
-</section>
+<p class="helper">কোনো চাকরির আবেদনে বয়সের সীমা থাকলে বিজ্ঞপ্তিতে উল্লেখ করা "as on" তারিখ অনুযায়ী এই হিসাব ব্যবহার করুন।</p>
 
-<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
+<section class="guide">
+  <h2>"As on" তারিখ কী?</h2>
+  <p>"As on" তারিখ হলো যে নির্দিষ্ট তারিখ পর্যন্ত আপনার বয়স হিসাব করতে হবে। চাকরি বা ভর্তি আবেদনে এই তারিখটি বিজ্ঞপ্তিতে উল্লেখ থাকতে পারে।</p>
+  <h2>কীভাবে ব্যবহার করবেন?</h2>
+  <ol>
+    <li>জন্ম তারিখ নির্বাচন করুন</li>
+    <li>যে তারিখ পর্যন্ত বয়স জানতে চান সেটি নির্বাচন করুন</li>
+    <li>হিসাব করুন চাপুন</li>
+    <li>সঠিক বয়স দেখুন</li>
+  </ol>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য সার্ভারে পাঠানো হয় না।</p>
+</section>
 </main>
+
 <footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
-<script src="js/app.js"></script>
 <script src="/js/main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
