@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>তারিখ কনভার্টার — ইংরেজি ↔ বাংলা তারিখ | সহজটুলস</title>
-<meta name="description" content="ইংরেজি তারিখ থেকে বাংলা (বঙ্গাব্দ) ও হিজরি তারিখ বের করুন, আবার বাংলা থেকে ইংরেজি। সরকারি ফর্ম ও ডকুমেন্টের জন্য ফ্রি বাংলা টুল।">
+<title>তারিখ কনভার্টার | ইংরেজি বাংলা হিজরি তারিখ | সহজটুলস</title>
+<meta name="description" content="ইংরেজি, বাংলা (বঙ্গাব্দ) ও হিজরি তারিখ সহজে রূপান্তর করুন। ফর্ম, আবেদন ও ডকুমেন্টের জন্য নির্দিষ্ট তারিখের বাংলা রূপ দেখুন।">
 <meta property="og:site_name" content="সহজটুলস">
-<meta property="og:title" content="তারিখ কনভার্টার — ইংরেজি ↔ বাংলা তারিখ">
+<meta property="og:title" content="তারিখ কনভার্টার | ইংরেজি বাংলা হিজরি তারিখ">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/date-converter/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
@@ -33,48 +34,89 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>তারিখ কনভার্টার</h1>
-<p class="sub">ইংরেজি ↔ বাংলা (বঙ্গাব্দ) + হিজরি তারিখ — ফর্ম ও ডকুমেন্টের জন্য।</p>
+<p class="sub">ইংরেজি, বাংলা (বঙ্গাব্দ) ও হিজরি তারিখ সহজে রূপান্তর করুন — ফর্ম, আবেদন ও ডকুমেন্টের জন্য।</p>
 
-<div class="tabs">
-  <button class="tab active" id="tabEn">ইংরেজি → বাংলা</button>
-  <button class="tab" id="tabBn">বাংলা → ইংরেজি</button>
+<div class="tabs-row">
+  <div class="tabs" role="tablist" aria-label="রূপান্তরের ধরন">
+    <button class="tab active" id="tabEn" role="tab" aria-selected="true" type="button">ইংরেজি → বাংলা</button>
+    <button class="tab" id="tabBn" role="tab" aria-selected="false" type="button">বাংলা → ইংরেজি</button>
+  </div>
+  <button class="tool-btn" id="swapBtn" type="button" aria-label="দিক পরিবর্তন করুন" title="দিক পরিবর্তন করুন">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3L4 7l4 4"/><path d="M4 7h16"/><path d="M16 21l4-4-4-4"/><path d="M20 17H4"/></svg>
+  </button>
 </div>
 
 <div class="calc" id="panelEn">
-  <button class="btn small" id="todayBtn">আজকের তারিখ</button>
-  <div class="field"><label>ইংরেজি তারিখ</label><input type="date" id="enDate"></div>
-  <button class="btn" id="enBtn">দেখুন</button>
-  <div class="result" id="enResult" hidden>
-    <p>বাংলা: <b id="outBn">—</b></p>
-    <p>হিজরি: <b id="outHijri">—</b></p>
-    <p>বার: <b id="outDay">—</b></p>
+  <div class="field">
+    <label for="enDate">ইংরেজি তারিখ</label>
+    <input type="date" id="enDate" min="1900-01-01" max="2099-12-31">
+    <p class="f-err" id="enErr" hidden></p>
+  </div>
+  <div class="btn-row">
+    <button class="btn ghost small" id="todayBtn" type="button">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      আজকের তারিখ
+    </button>
+    <button class="btn" id="enBtn" type="button">রূপান্তর করুন</button>
   </div>
 </div>
 
 <div class="calc" id="panelBn" hidden>
-  <div class="row">
-    <div class="field"><label>দিন</label><select id="bnDay"></select></div>
-    <div class="field"><label>মাস</label><select id="bnMonth"></select></div>
-    <div class="field"><label>সাল</label><input type="number" id="bnYear" value="1433"></div>
+  <div class="row3">
+    <div class="field"><label for="bnDay">দিন</label><select id="bnDay"></select></div>
+    <div class="field"><label for="bnMonth">মাস</label><select id="bnMonth"></select></div>
+    <div class="field"><label for="bnYear">সাল</label><input type="number" id="bnYear" value="1433" min="1300" max="1500"></div>
   </div>
-  <button class="btn" id="bnBtn">দেখুন</button>
-  <div class="result" id="bnResult" hidden>
-    <p>ইংরেজি: <b id="outEn">—</b></p>
-    <p>বার: <b id="outDay2">—</b></p>
+  <p class="f-err" id="bnErr" hidden></p>
+  <div class="btn-row">
+    <button class="btn ghost small" id="todayBnBtn" type="button">আজকের তারিখ</button>
+    <button class="btn" id="bnBtn" type="button">রূপান্তর করুন</button>
   </div>
 </div>
 
-<section class="guide">
-<h2>ইংরেজি সাল থেকে বাংলা সাল কীভাবে বের করবেন?</h2>
-<p>সাধারণ নিয়ম: ইংরেজি সাল থেকে ৫৯৩ বিয়োগ করলে বাংলা সাল পাওয়া যায় (যেমন: ২০২৬ − ৫৯৩ = ১৪৩৩)। মাস ও দিনের জন্য এই কনভার্টার ব্যবহার করুন — সরকারি ফর্ম, আবেদন ও ডকুমেন্টে বাংলা তারিখ লেখার জন্য কাজে লাগবে।</p>
-</section>
+<div class="result" id="result" hidden>
+  <h2>রূপান্তরের ফলাফল</h2>
+  <div class="r-row"><span class="r-label">ইংরেজি</span><span class="r-value" id="resEn">—</span></div>
+  <div class="r-row"><span class="r-label">বাংলা</span><span class="r-value" id="resBn">—</span></div>
+  <div class="r-row"><span class="r-label">হিজরি</span><span class="r-value" id="resHijri">—</span></div>
+  <p class="disclaimer">হিজরি তারিখ চাঁদ দেখার স্থানীয় সিদ্ধান্তের কারণে কিছু ক্ষেত্রে একদিন ভিন্ন হতে পারে।</p>
+  <div class="btn-row">
+    <button class="btn" id="copyBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      কপি করুন
+    </button>
+    <button class="btn ghost" id="copyAllBtn" type="button">সব তারিখ কপি করুন</button>
+    <button class="btn ghost" id="resetBtn" type="button">রিসেট করুন</button>
+  </div>
+  <p class="feedback" id="feedback"></p>
+  <label class="switch"><input type="checkbox" id="bnDigits" checked> তারিখের সংখ্যা বাংলায় দেখান</label>
+</div>
 
-<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
+<section class="guide">
+  <h2>বাংলা তারিখ কীভাবে হিসাব করা হয়?</h2>
+  <p>বাংলা তারিখ নির্ধারণে শুধু ইংরেজি সাল থেকে একটি নির্দিষ্ট সংখ্যা বিয়োগ করলেই হয় না। বাংলা বছরের শুরু, মাস ও দিনের অবস্থান অনুযায়ী সঠিক বঙ্গাব্দ নির্ধারণ করতে হয়। তাই নির্দিষ্ট তারিখের বাংলা রূপ জানতে এই কনভার্টার ব্যবহার করুন। এই টুলে বাংলাদেশের প্রচলিত বাংলা ক্যালেন্ডার অনুসরণ করা হয়।</p>
+  <h2>কীভাবে ব্যবহার করবেন?</h2>
+  <ol>
+    <li>রূপান্তরের ধরন নির্বাচন করুন</li>
+    <li>তারিখ দিন</li>
+    <li>রূপান্তর করুন চাপুন</li>
+    <li>ইংরেজি, বাংলা ও হিজরি তারিখ দেখুন</li>
+    <li>প্রয়োজনে কপি করুন</li>
+  </ol>
+  <h2>তিনটি ক্যালেন্ডার</h2>
+  <p><b>ইংরেজি (Gregorian):</b> আন্তর্জাতিকভাবে ব্যবহৃত ক্যালেন্ডার।</p>
+  <p><b>বাংলা (বঙ্গাব্দ):</b> বাংলাদেশে প্রচলিত বাংলা ক্যালেন্ডার।</p>
+  <p><b>হিজরি:</b> ইসলামিক চন্দ্রভিত্তিক ক্যালেন্ডার।</p>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য সার্ভারে পাঠানো হয় না।</p>
+</section>
 </main>
+
 <footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
-<script src="js/app.js"></script>
 <script src="/js/main.js"></script>
+<script src="js/date-convert.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
