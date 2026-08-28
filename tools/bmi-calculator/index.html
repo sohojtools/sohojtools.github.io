@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BMI ক্যালকুলেটর — ওজন ও উচ্চতা দিয়ে BMI হিসাব | সহজটুলস</title>
-<meta name="description" content="উচ্চতা ও ওজন দিয়ে BMI (Body Mass Index) হিসাব করুন — WHO ক্যাটাগরি ও স্বাস্থ্যকর ওজনের রেঞ্জ সহ। ফ্রি বাংলা টুল।">
+<title>BMI ক্যালকুলেটর | উচ্চতা ও ওজন দিয়ে BMI হিসাব | সহজটুলস</title>
+<meta name="description" content="উচ্চতা ও ওজন দিয়ে BMI হিসাব করুন এবং প্রাপ্তবয়স্কদের BMI-এর সাধারণ শ্রেণিবিন্যাস দেখুন। দ্রুত, সহজ ও ব্রাউজারেই হিসাব করুন।">
 <meta property="og:site_name" content="সহজটুলস">
-<meta property="og:title" content="BMI ক্যালকুলেটর — ওজন ও উচ্চতা দিয়ে BMI হিসাব">
+<meta property="og:title" content="BMI ক্যালকুলেটর | উচ্চতা ও ওজন দিয়ে BMI হিসাব">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/bmi-calculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
@@ -33,34 +34,83 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>BMI ক্যালকুলেটর</h1>
-<p class="sub">উচ্চতা ও ওজন দিয়ে BMI ও স্বাস্থ্যকর ওজনের রেঞ্জ জানুন।</p>
+<p class="sub">উচ্চতা ও ওজন দিয়ে BMI হিসাব করুন এবং ফলাফলের সাধারণ শ্রেণিবিন্যাস দেখুন।</p>
 
 <div class="calc">
-  <div class="row">
-    <div class="field"><label>উচ্চতা (সেমি)</label><input type="number" id="height" placeholder="যেমন: 165"></div>
-    <div class="field"><label>ওজন (কেজি)</label><input type="number" id="weight" placeholder="যেমন: 60"></div>
+  <div class="row2">
+    <div class="field">
+      <label for="height">উচ্চতা (সেমি)</label>
+      <input type="text" id="height" inputmode="decimal" placeholder="যেমন: 170" autocomplete="off">
+      <p class="f-err" id="hErr" hidden></p>
+    </div>
+    <div class="field">
+      <label for="weight">ওজন (কেজি)</label>
+      <input type="text" id="weight" inputmode="decimal" placeholder="যেমন: 65" autocomplete="off">
+      <p class="f-err" id="wErr" hidden></p>
+    </div>
   </div>
-  <button class="btn" id="calcBtn">হিসাব করুন</button>
-  <p class="error" id="err" hidden>সঠিক উচ্চতা ও ওজন দিন।</p>
+  <div class="field">
+    <label for="age">বয়স (ঐচ্ছিক)</label>
+    <input type="text" id="age" inputmode="numeric" placeholder="যেমন: 25" autocomplete="off">
+    <p class="f-err" id="aErr" hidden></p>
+  </div>
+  <button class="btn" id="calcBtn" type="button">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
+    হিসাব করুন
+  </button>
 </div>
 
-<div class="result" id="result" hidden>
-  <div class="bmi-big"><span id="bmiVal">—</span></div>
-  <div class="cat" id="cat">—</div>
-  <div class="range">আপনার উচ্চতায় স্বাস্থ্যকর ওজন: <b id="range">—</b></div>
+<div class="result" id="result" hidden aria-live="polite">
+  <h2>আপনার BMI</h2>
+  <div class="bmi-big" id="bmiVal">—</div>
+  <div class="cat" id="cat" hidden><span class="dot" id="catDot"></span><span id="catText"></span></div>
+  <p class="minor-note" id="minorNote" hidden>এই বয়সে adult BMI categories প্রযোজ্য নয়। সঠিক মূল্যায়নের জন্য শিশু ও কিশোর-কিশোরীদের বয়স ও লিঙ্গ অনুযায়ী BMI percentile/growth chart ব্যবহার করা হয়।</p>
+  <div class="breakdown">
+    <p>উচ্চতা: <b id="bdH">—</b></p>
+    <p>ওজন: <b id="bdW">—</b></p>
+  </div>
+  <p class="range-note" id="rangeNote" hidden></p>
+  <p class="disclaimer">BMI একটি সাধারণ screening measure — এটি শরীরের গঠন, পেশীর পরিমাণ বা সামগ্রিক স্বাস্থ্য সম্পর্কে সম্পূর্ণ তথ্য দেয় না। এই ফলাফল চিকিৎসা-পরামর্শ বা রোগ নির্ণয় নয়। স্বাস্থ্য নিয়ে উদ্বেগ থাকলে একজন যোগ্য স্বাস্থ্যপেশাদারের সঙ্গে কথা বলুন।</p>
+  <div class="btn-row">
+    <button class="btn ghost" id="copyBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      ফলাফল কপি করুন
+    </button>
+    <button class="btn ghost" id="resetBtn" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      রিসেট করুন
+    </button>
+  </div>
+  <p class="feedback" id="feedback"></p>
 </div>
 
 <section class="guide">
-<h2>BMI কী এবং কীভাবে হিসাব হয়?</h2>
-<p>BMI = ওজন (কেজি) ÷ উচ্চতা (মিটার)²। WHO অনুযায়ী: ১৮.৫ এর নিচে কম ওজন, ১৮.৫–২৪.৯ স্বাভাবিক, ২৫–২৯.৯ অতিরিক্ত ওজন, ৩০+ স্থূলতা। BMI একটি সাধারণ নির্দেশক মাত্র — পূর্ণাঙ্গ পরামর্শের জন্য ডাক্তারের সাথে কথা বলুন।</p>
+  <h2>BMI কী?</h2>
+  <p>BMI বা Body Mass Index হলো উচ্চতা ও ওজনের ভিত্তিতে শরীরের ওজনের একটি সাধারণ পরিমাপ।</p>
+  <h2>কীভাবে হিসাব হয়?</h2>
+  <p><b>BMI = ওজন (কেজি) ÷ উচ্চতা (মিটার)²</b></p>
+  <p>উদাহরণ: উচ্চতা 170 সেমি = 1.70 মি, ওজন 65 কেজি হলে BMI = 65 ÷ (1.70 × 1.70) = 22.5</p>
+  <h2>প্রাপ্তবয়স্কদের BMI-এর সাধারণ শ্রেণি</h2>
+  <table class="ref-table">
+    <thead><tr><th>BMI</th><th>শ্রেণি</th></tr></thead>
+    <tbody>
+      <tr><td>18.5-এর নিচে</td><td>কম ওজন</td></tr>
+      <tr><td>18.5–24.9</td><td>স্বাভাবিক সীমা</td></tr>
+      <tr><td>25.0–29.9</td><td>অতিরিক্ত ওজন</td></tr>
+      <tr><td>30.0 বা বেশি</td><td>স্থূলতার শ্রেণি</td></tr>
+    </tbody>
+  </table>
+  <p class="info-box">এই ক্যালকুলেটরটি প্রাপ্তবয়স্কদের BMI-এর সাধারণ হিসাবের জন্য। শিশু ও কিশোর-কিশোরীদের BMI মূল্যায়নে বয়স ও লিঙ্গ অনুযায়ী আলাদা growth chart ব্যবহার করা হয়।</p>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য সার্ভারে পাঠানো হয় না।</p>
 </section>
-
-<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
 </main>
+
 <footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
-<script src="js/app.js"></script>
 <script src="/js/main.js"></script>
+<script src="js/bmi.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
