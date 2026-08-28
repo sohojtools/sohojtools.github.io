@@ -1,0 +1,20 @@
+.tool{max-width:640px}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{padding:10px 18px;border:1px solid var(--border);background:#fff;border-radius:99px;font-family:inherit;font-size:15px;cursor:pointer;color:var(--muted)}
+.tab.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.calc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+.field input,.field select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:15px;background:#fff}
+.row{display:flex;gap:10px}
+.row .field{flex:1}
+.btn{width:100%;background:var(--brand);color:#fff;padding:12px;border:none;border-radius:10px;font-size:16px;font-family:inherit;cursor:pointer}
+.btn:hover{background:#1d4ed8}
+.btn.small{width:auto;padding:8px 16px;font-size:14px;margin-bottom:12px}
+.result{margin-top:16px;background:var(--bg);border-radius:12px;padding:16px}
+.result p{margin-bottom:6px;font-size:15px}
+.result b{color:var(--brand)}
+.guide{margin-top:28px}
+.guide h2{font-size:18px;margin-bottom:8px}
+.guide p{color:var(--muted);font-size:14px}
+.privacy{margin-top:20px;color:var(--muted);font-size:14px}

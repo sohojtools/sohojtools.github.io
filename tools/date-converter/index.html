@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>তারিখ কনভার্টার — ইংরেজি ↔ বাংলা তারিখ | সহজটুলস</title>
+<meta name="description" content="ইংরেজি তারিখ থেকে বাংলা (বঙ্গাব্দ) ও হিজরি তারিখ বের করুন, আবার বাংলা থেকে ইংরেজি। সরকারি ফর্ম ও ডকুমেন্টের জন্য ফ্রি বাংলা টুল।">
+<meta property="og:site_name" content="সহজটুলস">
+<meta property="og:title" content="তারিখ কনভার্টার — ইংরেজি ↔ বাংলা তারিখ">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://sohojtools.github.io/tools/date-converter/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"তারিখ কনভার্টার","url":"https://sohojtools.github.io/tools/date-converter/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"BDT"}}
+</script>
+</head>
+<body>
+<header><div class="nav"><a class="logo" href="/"><span class="logo-dot"></span>সহজটুলস</a></div></header>
+<main class="tool">
+<h1>তারিখ কনভার্টার</h1>
+<p class="sub">ইংরেজি ↔ বাংলা (বঙ্গাব্দ) + হিজরি তারিখ — ফর্ম ও ডকুমেন্টের জন্য।</p>
+
+<div class="tabs">
+  <button class="tab active" id="tabEn">ইংরেজি → বাংলা</button>
+  <button class="tab" id="tabBn">বাংলা → ইংরেজি</button>
+</div>
+
+<div class="calc" id="panelEn">
+  <button class="btn small" id="todayBtn">আজকের তারিখ</button>
+  <div class="field"><label>ইংরেজি তারিখ</label><input type="date" id="enDate"></div>
+  <button class="btn" id="enBtn">দেখুন</button>
+  <div class="result" id="enResult" hidden>
+    <p>বাংলা: <b id="outBn">—</b></p>
+    <p>হিজরি: <b id="outHijri">—</b></p>
+    <p>বার: <b id="outDay">—</b></p>
+  </div>
+</div>
+
+<div class="calc" id="panelBn" hidden>
+  <div class="row">
+    <div class="field"><label>দিন</label><select id="bnDay"></select></div>
+    <div class="field"><label>মাস</label><select id="bnMonth"></select></div>
+    <div class="field"><label>সাল</label><input type="number" id="bnYear" value="1433"></div>
+  </div>
+  <button class="btn" id="bnBtn">দেখুন</button>
+  <div class="result" id="bnResult" hidden>
+    <p>ইংরেজি: <b id="outEn">—</b></p>
+    <p>বার: <b id="outDay2">—</b></p>
+  </div>
+</div>
+
+<section class="guide">
+<h2>ইংরেজি সাল থেকে বাংলা সাল কীভাবে বের করবেন?</h2>
+<p>সাধারণ নিয়ম: ইংরেজি সাল থেকে ৫৯৩ বিয়োগ করলে বাংলা সাল পাওয়া যায় (যেমন: ২০২৬ − ৫৯৩ = ১৪৩৩)। মাস ও দিনের জন্য এই কনভার্টার ব্যবহার করুন — সরকারি ফর্ম, আবেদন ও ডকুমেন্টে বাংলা তারিখ লেখার জন্য কাজে লাগবে।</p>
+</section>
+
+<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
+</main>
+<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
