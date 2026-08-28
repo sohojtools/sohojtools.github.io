@@ -4,11 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>সহজটুলস — ফ্রি বাংলা অনলাইন টুলস</title>
-<meta name="description" content="চাকরির আবেদনের ছবি রিসাইজ, ইমেজ কমপ্রেসর, বয়স ক্যালকুলেটর — সব ফ্রি, সাইনআপ ছাড়া, বাংলায়।">
+<meta name="description" content="ছবি রিসাইজ, ইমেজ কমপ্রেসর, বয়স ক্যালকুলেটর, টাকার অঙ্ক কথায়, তারিখ কনভার্টার ও BMI ক্যালকুলেটর — সব ফ্রি, সাইনআপ ছাড়া, বাংলায়।">
+<link rel="canonical" href="https://sohojtools.github.io/">
 <meta property="og:site_name" content="সহজটুলস">
 <meta property="og:title" content="সহজটুলস — ফ্রি বাংলা অনলাইন টুলস">
+<meta property="og:description" content="দৈনন্দিন কাজের জন্য সহজ, দ্রুত ও বিনামূল্যের বাংলা টুলস।">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://sohojtools.github.io/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json">
@@ -16,38 +21,136 @@
 </script>
 </head>
 <body>
-<header><div class="nav">
-<a class="logo" href="/"><span class="logo-dot"></span>সহজটুলস</a>
-<nav><a href="/about/">আমাদের সম্পর্কে</a><a href="/privacy/">প্রাইভেসি</a></nav>
-</div></header>
+<header class="site-header">
+  <div class="nav">
+    <a class="logo" href="/">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#2563eb"/><path d="M8 9.5h12M8 14h12M8 18.5h12" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9.5" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/><circle cx="11" cy="14" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/><circle cx="15.5" cy="18.5" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/></svg>
+      <span>সহজটুলস</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="মূল নেভিগেশন">
+      <a href="/about/">আমাদের সম্পর্কে</a>
+      <a href="/privacy/">প্রাইভেসি</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="মেনু খুলুন">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
 
 <section class="hero">
-<h1>দরকারি টুলস, <span>বাংলায়</span>, একদম ফ্রি</h1>
-<p>সাইনআপ লাগবে না। সব টুল সরাসরি আপনার ব্রাউজারে চলে — ছবি বা তথ্য কোথাও আপলোড হয় না।</p>
+<h1>দরকারি টুলস, <span class="accent">বাংলায়</span>, একদম ফ্রি</h1>
+<p class="sub">দৈনন্দিন কাজের জন্য সহজ, দ্রুত ও নির্ভরযোগ্য বাংলা টুলস।</p>
+<p class="hero-privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>সাইনআপ লাগে না — আপনার ছবি ও তথ্য কোথাও আপলোড হয় না।</p>
 </section>
 
 <main>
-<div class="grid">
+<section class="section" id="tools" aria-labelledby="toolsTitle">
+<h2 id="toolsTitle" class="section-title">সব টুলস</h2>
+<p class="section-sub">দৈনন্দিন দরকারি কাজের জন্য সহজ বাংলা টুলস</p>
+<div class="grid" id="toolGrid">
+
 <a class="card" href="/tools/photo-resizer/">
-<div class="icon">🖼️</div>
-<span class="badge">লাইভ</span>
-<h2>ছবি ও সিগনেচার রিসাইজ</h2>
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>ছবি ও সিগনেচার রিসাইজ</h3>
 <p>300×300 ছবি ও 300×80 সিগনেচার — পছন্দমতো ক্রপ করে, KB লিমিট সহ।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
+
 <a class="card" href="/tools/image-compressor/">
-<div class="icon">🗜️</div>
-<span class="badge">লাইভ</span>
-<h2>ইমেজ কমপ্রেসর</h2>
-<p>যেকোনো ছবি নির্দিষ্ট KB এ — 100KB, 60KB, 50KB।</p>
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>ইমেজ কমপ্রেসর</h3>
+<p>যেকোনো ছবি নির্দিষ্ট KB এ ছোট করুন — 100KB, 60KB, 50KB।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="card" href="/tools/age-calculator/"><div class="icon">🎂</div><span class="badge">লাইভ</span><h2>বয়স ক্যালকুলেটর</h2><p>চাকরির ফর্মের জন্য নির্ভুল বয়স — "as on" তারিখ সহ।</p></a>
-<a class="card" href="/tools/taka-in-words/"><div class="icon">💳</div><span class="badge">লাইভ</span><h2>টাকার অঙ্ক কথায়</h2><p>যেকোনো টাকার অঙ্ক বাংলা কথায় — চেক ও ফর্মের জন্য।</p></a>
-<a class="card" href="/tools/date-converter/"><div class="icon">📅</div><span class="badge">লাইভ</span><h2>তারিখ কনভার্টার</h2><p>ইংরেজি ↔ বাংলা + হিজরি তারিখ — ফর্ম ও ডকুমেন্টের জন্য।</p></a>
-<a class="card" href="/tools/bmi-calculator/"><div class="icon">⚖️</div><span class="badge">লাইভ</span><h2>BMI ক্যালকুলেটর</h2><p>উচ্চতা ও ওজন দিয়ে BMI ও স্বাস্থ্যকর ওজনের রেঞ্জ।</p></a>
-<div class="card soon"><div class="icon">⌨️</div><span class="badge soon">শীঘ্রই</span><h2>বিজয় ↔ ইউনিকোড</h2><p>পুরনো বিজয় ফন্টের টেক্সট ইউনিকোড বাংলায়।</p></div>
+
+<a class="card" href="/tools/age-calculator/">
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>বয়স ক্যালকুলেটর</h3>
+<p>চাকরির ফর্মের জন্য নির্ভুল বয়স — হিসাবের তারিখ নিজে বেছে নিন।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a>
+
+<a class="card" href="/tools/taka-in-words/">
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>টাকার অঙ্ক কথায়</h3>
+<p>যেকোনো টাকার অঙ্ক বাংলা কথায় — চেক ও ফর্মের জন্য।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a>
+
+<a class="card" href="/tools/date-converter/">
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0 1 14.9-3.4L23 10M1 14l4.6 4.4A9 9 0 0 0 20.5 15"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>তারিখ কনভার্টার</h3>
+<p>ইংরেজি ↔ বাংলা ও হিজরি তারিখ — ফর্ম ও ডকুমেন্টের জন্য।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a>
+
+<a class="card" href="/tools/bmi-calculator/">
+<span class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+<span class="badge"><span class="dot"></span>লাইভ</span>
+<h3>BMI ক্যালকুলেটর</h3>
+<p>উচ্চতা ও ওজন দিয়ে BMI ও স্বাস্থ্যকর ওজনের রেঞ্জ জানুন।</p>
+<span class="go">ব্যবহার করুন <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a>
+
 </div>
+</section>
+
+<section class="section" aria-labelledby="trustTitle">
+<h2 id="trustTitle" class="section-title">আপনার তথ্য আপনার কাছেই</h2>
+<p class="section-sub">যে কারণে সহজটুলস ব্যবহার করা নিরাপদ</p>
+<div class="trust-grid">
+<div class="trust-item">
+<span class="t-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+<h3>কোনো সাইনআপ নেই</h3>
+<p>নাম বা ইমেইল ছাড়াই সব টুল ব্যবহার করুন।</p>
+</div>
+<div class="trust-item">
+<span class="t-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+<h3>ব্রাউজারেই কাজ সম্পন্ন</h3>
+<p>সব টুল সরাসরি আপনার ডিভাইসে চলে।</p>
+</div>
+<div class="trust-item">
+<span class="t-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+<h3>ফাইল সার্ভারে যায় না</h3>
+<p>আপনার ছবি ও তথ্য আপনার কাছেই থাকে।</p>
+</div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="howTitle">
+<h2 id="howTitle" class="section-title">কীভাবে ব্যবহার করবেন</h2>
+<p class="section-sub">মাত্র তিনটি সহজ ধাপ</p>
+<div class="steps">
+<div class="step"><span class="step-num">১</span><h3>একটি টুল বেছে নিন</h3><p>হোম পেজ থেকে আপনার দরকারি টুলে ক্লিক করুন।</p></div>
+<div class="step"><span class="step-num">২</span><h3>আপনার তথ্য দিন</h3><p>ছবি, তারিখ বা সংখ্যা — যা দরকার তা লিখুন বা দিন।</p></div>
+<div class="step"><span class="step-num">৩</span><h3>ফলাফল ব্যবহার করুন</h3><p>ফলাফল দেখুন, ডাউনলোড বা কপি করুন।</p></div>
+</div>
+</section>
 </main>
 
-<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
+<footer class="footer-rich">
+<div class="footer-inner">
+<div class="f-brand">
+<a class="logo" href="/">
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#2563eb"/><path d="M8 9.5h12M8 14h12M8 18.5h12" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9.5" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/><circle cx="11" cy="14" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/><circle cx="15.5" cy="18.5" r="2.1" fill="#2563eb" stroke="#fff" stroke-width="1.6"/></svg>
+<span>সহজটুলস</span>
+</a>
+<p>দৈনন্দিন কাজের জন্য সহজ, দ্রুত ও বিনামূল্যের বাংলা টুলস।</p>
+</div>
+<nav class="f-links" aria-label="ফুটার নেভিগেশন">
+<a href="/about/">আমাদের সম্পর্কে</a>
+<a href="/privacy/">প্রাইভেসি</a>
+<a href="/contact/">যোগাযোগ</a>
+<a href="/terms/">শর্তাবলি</a>
+</nav>
+</div>
+<div class="footer-bottom">© 2026 সহজটুলস · সর্বস্বত্ব সংরক্ষিত</div>
+</footer>
+<script src="/js/main.js"></script>
 </body>
 </html>
