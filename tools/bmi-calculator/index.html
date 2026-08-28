@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMI ক্যালকুলেটর — ওজন ও উচ্চতা দিয়ে BMI হিসাব | সহজটুলস</title>
+<meta name="description" content="উচ্চতা ও ওজন দিয়ে BMI (Body Mass Index) হিসাব করুন — WHO ক্যাটাগরি ও স্বাস্থ্যকর ওজনের রেঞ্জ সহ। ফ্রি বাংলা টুল।">
+<meta property="og:site_name" content="সহজটুলস">
+<meta property="og:title" content="BMI ক্যালকুলেটর — ওজন ও উচ্চতা দিয়ে BMI হিসাব">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://sohojtools.github.io/tools/bmi-calculator/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"BMI ক্যালকুলেটর","url":"https://sohojtools.github.io/tools/bmi-calculator/","applicationCategory":"HealthApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"BDT"}}
+</script>
+</head>
+<body>
+<header><div class="nav"><a class="logo" href="/"><span class="logo-dot"></span>সহজটুলস</a></div></header>
+<main class="tool">
+<h1>BMI ক্যালকুলেটর</h1>
+<p class="sub">উচ্চতা ও ওজন দিয়ে BMI ও স্বাস্থ্যকর ওজনের রেঞ্জ জানুন।</p>
+
+<div class="calc">
+  <div class="row">
+    <div class="field"><label>উচ্চতা (সেমি)</label><input type="number" id="height" placeholder="যেমন: 165"></div>
+    <div class="field"><label>ওজন (কেজি)</label><input type="number" id="weight" placeholder="যেমন: 60"></div>
+  </div>
+  <button class="btn" id="calcBtn">হিসাব করুন</button>
+  <p class="error" id="err" hidden>সঠিক উচ্চতা ও ওজন দিন।</p>
+</div>
+
+<div class="result" id="result" hidden>
+  <div class="bmi-big"><span id="bmiVal">—</span></div>
+  <div class="cat" id="cat">—</div>
+  <div class="range">আপনার উচ্চতায় স্বাস্থ্যকর ওজন: <b id="range">—</b></div>
+</div>
+
+<section class="guide">
+<h2>BMI কী এবং কীভাবে হিসাব হয়?</h2>
+<p>BMI = ওজন (কেজি) ÷ উচ্চতা (মিটার)²। WHO অনুযায়ী: ১৮.৫ এর নিচে কম ওজন, ১৮.৫–২৪.৯ স্বাভাবিক, ২৫–২৯.৯ অতিরিক্ত ওজন, ৩০+ স্থূলতা। BMI একটি সাধারণ নির্দেশক মাত্র — পূর্ণাঙ্গ পরামর্শের জন্য ডাক্তারের সাথে কথা বলুন।</p>
+</section>
+
+<p class="privacy">🔒 সব হিসাব আপনার ব্রাউজারেই হয় — কোনো তথ্য পাঠানো হয় না।</p>
+</main>
+<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
