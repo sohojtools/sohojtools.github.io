@@ -80,3 +80,22 @@ footer.footer-rich{padding:0;text-align:left}
 .page h2{margin:24px 0 8px;font-size:19px}
 .page p{margin-bottom:10px;color:var(--muted)}
 .page a{color:var(--brand)}
+
+/* sticky footer: content choto holeo footer niche thakbe */
+body{min-height:100vh;display:flex;flex-direction:column}
+main{flex:1 0 auto}
+
+/* simple pages polish */
+.page{max-width:760px;margin:0 auto;padding:48px 20px 64px;width:100%}
+.page h1{font-size:30px;margin-bottom:10px}
+.page .lead{font-size:16.5px;color:var(--text);margin-bottom:6px}
+.page h2{margin:28px 0 10px;font-size:19px}
+.page p{margin-bottom:10px;color:var(--muted);font-size:15px}
+.page ul{padding-left:20px;display:grid;gap:6px;color:var(--muted);font-size:14.5px;margin-bottom:12px}
+.page a{color:var(--brand)}
+.page .updated{font-size:13px}
+.page .info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin:20px 0}
+.page .info-card h3{font-size:16px;margin-bottom:6px}
+.page .tool-list{list-style:none;padding-left:0}
+.page .tool-list a{font-weight:600;font-size:14.5px;text-decoration:none}
+.page .tool-list a:hover{text-decoration:underline}
