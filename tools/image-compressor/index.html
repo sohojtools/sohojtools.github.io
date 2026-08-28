@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ইমেজ কমপ্রেসর — নির্দিষ্ট KB এ ছবি ছোট করুন | সহজটুলস</title>
-<meta name="description" content="যেকোনো ছবি 100KB, 60KB, 50KB বা নিজের পছন্দমতো KB এ কমপ্রেস করুন। ফ্রি, ওয়াটারমার্ক ছাড়া, ছবি ডিভাইস থেকে কোথাও যায় না।">
+<title>ইমেজ কমপ্রেসর | ছবি KB কমানোর টুল | সহজটুলস</title>
+<meta name="description" content="যেকোনো ছবি নির্দিষ্ট KB-এর মধ্যে ছোট করুন — 100KB, 60KB, 50KB, 20KB বা কাস্টম target। Quality যতটা সম্ভব ভালো রেখে কমপ্রেস। ফ্রি বাংলা টুল।">
 <meta property="og:site_name" content="সহজটুলস">
-<meta property="og:title" content="ইমেজ কমপ্রেসর — নির্দিষ্ট KB এ ছবি ছোট করুন">
+<meta property="og:title" content="ইমেজ কমপ্রেসর | ছবি KB কমানোর টুল">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/image-compressor/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
@@ -33,38 +34,95 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>ইমেজ কমপ্রেসর</h1>
-<p class="sub">যেকোনো ছবি নির্দিষ্ট KB এ ছোট করুন। Target = সর্বোচ্চ সাইজ — ছবি আগে থেকেই ছোট হলে কোয়ালিটি নষ্ট হয় না।</p>
+<p class="sub">যেকোনো ছবি নির্দিষ্ট KB-এর মধ্যে ছোট করুন। Target হলো সর্বোচ্চ ফাইল সাইজ — ছবি আগে থেকেই ছোট হলে অপ্রয়োজনীয়ভাবে quality কমানো হবে না।</p>
 
-<div class="drop" id="drop">
-  <p>ছবি এখানে টেনে আনুন<br><span>অথবা ক্লিক করে বেছে নিন (JPG/PNG)</span></p>
-  <input type="file" id="file" accept="image/*" hidden>
-</div>
-
-<div class="kb-row" id="kbRow">
-  <span>Target:</span>
-  <button class="kb-btn active" data-kb="100">100KB</button>
-  <button class="kb-btn" data-kb="60">60KB</button>
-  <button class="kb-btn" data-kb="50">50KB</button>
-  <button class="kb-btn" data-kb="20">20KB</button>
-  <input type="number" id="customKb" placeholder="অন্য KB" min="1">
-</div>
-
-<div class="result" id="result" hidden>
-  <div class="preview-box"><img id="preview" alt="preview"></div>
-  <div class="info">
-    <p>আগে: <b id="origSize">—</b></p>
-    <p>এখন: <b id="newSize">—</b> <span id="saved"></span></p>
-    <a id="download" class="btn" download>ডাউনলোড করুন</a>
-    <button id="again" class="btn ghost">অন্য ছবি</button>
+<div class="target-row">
+  <span class="t-label" id="tLabel">Target size</span>
+  <div class="chips" role="group" aria-labelledby="tLabel">
+    <button class="chip active" data-kb="100">100 KB</button>
+    <button class="chip" data-kb="60">60 KB</button>
+    <button class="chip" data-kb="50">50 KB</button>
+    <button class="chip" data-kb="20">20 KB</button>
+  </div>
+  <div class="custom-wrap">
+    <label for="customKb">কাস্টম:</label>
+    <input type="number" id="customKb" min="5" max="10240" placeholder="80">
+    <span>KB</span>
   </div>
 </div>
+<p class="error" id="customErr" hidden>সঠিক সাইজ লিখুন।</p>
+<p class="notice" id="customWarn" hidden>এত বড় target সাধারণত লাগে না — 100 KB-এর মধ্যেই বেশিরভাগ ফর্মে যথেষ্ট।</p>
 
-<p class="privacy">🔒 আপনার ছবি ব্রাউজারেই প্রসেস হয় — সার্ভারে আপলোড হয় না।</p>
+<button class="adv-toggle" id="advBtn" aria-expanded="false" aria-controls="advPanel">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  অতিরিক্ত সেটিংস
+</button>
+<div class="adv-panel" id="advPanel" hidden>
+  <div class="row2">
+    <div class="field"><label for="formatSel">ফাইল ফরম্যাট</label><select id="formatSel"><option value="auto">অটো (প্রয়োজনমতো)</option><option value="jpg">JPG</option><option value="png">PNG</option></select></div>
+    <div class="field"><label for="maxWIn">সর্বোচ্চ প্রস্থ (px, খালি = আসল মাপ)</label><input type="number" id="maxWIn" min="50" max="8000" placeholder="যেমন: 1920"></div>
+  </div>
+  <label class="switch"><input type="checkbox" id="manualQ"> ম্যানুয়াল মান ব্যবহার করুন</label>
+  <div class="field"><label for="qRange">ছবির মান: <span id="qVal">90%</span></label><input type="range" id="qRange" min="40" max="100" value="90"></div>
+  <p class="hint">ম্যানুয়াল মান চালু থাকলে target অনুযায়ী অটো optimization বন্ধ থাকবে। প্রসেস করার সময় ছবির metadata (EXIF) স্বয়ংক্রিয়ভাবে সরে যায়।</p>
+</div>
+
+<div class="drop" id="drop">
+  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+  <p id="dropTitle">ছবি এখানে টেনে আনুন</p>
+  <span id="dropHint">অথবা ক্লিক করে বেছে নিন · ছবি পেস্ট করেও শুরু করতে পারেন (Ctrl+V)</span>
+  <span class="formats">JPG • PNG · সর্বোচ্চ 25 MB</span>
+  <input type="file" id="file" accept="image/jpeg,image/png,image/*" hidden>
+</div>
+<p class="error" id="err" hidden></p>
+<p class="notice" id="notice" hidden>ছবিটি অনেক বড়। প্রসেস করতে কিছুটা সময় লাগতে পারে।</p>
+<p class="status" id="status" hidden>ছবি কমপ্রেস করা হচ্ছে...</p>
+
+<div class="result" id="result" hidden>
+  <div class="compare">
+    <figure><div class="box"><img id="origImg" alt="আগের ছবি"></div><figcaption>আগের ছবি · <b id="origSize">—</b></figcaption></figure>
+    <figure><div class="box"><img id="finalImg" alt="কমপ্রেস করা ছবি"></div><figcaption>কমপ্রেস করা ছবি · <b id="newSize">—</b></figcaption></figure>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stBefore">—</b><span>আগে</span></div>
+    <div class="stat"><b id="stAfter">—</b><span>এখন</span></div>
+    <div class="stat"><b id="stSaved">—</b><span>কমেছে</span></div>
+  </div>
+  <div class="tstatus" id="tStatus">
+    <svg id="okIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-2.99"/></svg>
+    <svg id="warnIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" hidden aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h13.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+    <span id="tStatusText"></span>
+  </div>
+  <p class="error" id="fmtNote" hidden></p>
+  <div class="btn-row">
+    <a class="btn" id="downloadBtn" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> ডাউনলোড করুন</a>
+    <button class="btn ghost" id="retryBtn" type="button" hidden>মাপ কমিয়ে চেষ্টা করুন</button>
+    <button class="btn ghost" id="replaceBtn" type="button">অন্য ছবি নির্বাচন করুন</button>
+    <button class="btn ghost" id="resetAllBtn" type="button">সব রিসেট করুন</button>
+  </div>
+  <p class="feedback" id="feedback"></p>
+</div>
+
+<section class="guide">
+  <h2>ইমেজ কমপ্রেশন কী?</h2>
+  <p>ইমেজ কমপ্রেশন ছবির ফাইল সাইজ কমায়, যাতে ছবি সহজে আপলোড, শেয়ার বা সংরক্ষণ করা যায়।</p>
+  <h2>Target size কীভাবে কাজ করে?</h2>
+  <p>Target size হলো সর্বোচ্চ কাঙ্ক্ষিত ফাইল সাইজ। Tool ছবির quality সামঞ্জস্য করে সেই সীমার মধ্যে আনার চেষ্টা করে। ছবি আগে থেকেই ছোট হলে quality অপ্রয়োজনীয়ভাবে কমানো হয় না।</p>
+  <h2>ভালো ফলাফলের জন্য</h2>
+  <ul>
+    <li>খুব ছোট target দিলে quality কমতে পারে</li>
+    <li>বড় ছবির ক্ষেত্রে processing কিছুটা সময় নিতে পারে</li>
+    <li>Target-এর মধ্যে থাকা ছোট ছবিকে অপ্রয়োজনীয়ভাবে compress করা হবে না</li>
+  </ul>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> আপনার ছবি ব্রাউজারেই প্রসেস হয় — সার্ভারে আপলোড হয় না।</p>
+</section>
 </main>
-<footer>© 2026 সহজটুলস · ফ্রি বাংলা অনলাইন টুলস</footer>
-<script src="js/app.js"></script>
+
+<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
 <script src="/js/main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
