@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ছবি ও সিগনেচার রিসাইজ — 300x300 অনলাইন টুল | সহজটুলস</title>
-<meta name="description" content="সরকারি চাকরি ও Teletalk আবেদনের জন্য ছবি 300×300 পিক্সেল (১০০KB) এবং সিগনেচার 300×80 পিক্সেল (৬০KB) মাপে রিসাইজ করুন। নিজের পছন্দমতো ক্রপ করুন। ফ্রি, ওয়াটারমার্ক ছাড়া।">
+<meta name="description" content="সরকারি চাকরি ও ভর্তি ফর্মের জন্য ছবি 300×300 ও সিগনেচার 300×80 মাপে রিসাইজ করুন — কাস্টম মাপ, ক্রপ, জুম, JPG/PNG সহ। ফ্রি বাংলা টুল।">
 <meta property="og:site_name" content="সহজটুলস">
 <meta property="og:title" content="ছবি ও সিগনেচার রিসাইজ — 300×300 অনলাইন টুল">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://sohojtools.github.io/tools/photo-resizer/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
@@ -34,44 +35,97 @@
     </button>
   </div>
 </header>
+
 <main class="tool">
 <h1>ছবি ও সিগনেচার রিসাইজ</h1>
-<p class="sub">সরকারি চাকরি, Teletalk ও ভর্তি ফর্মের সঠিক মাপে — নিজের পছন্দমতো ক্রপ করুন।</p>
+<p class="sub">মাপ বেছে নিন → ছবি দিন → ক্রপ করে ডাউনলোড করুন।</p>
 
-<div class="tabs">
-  <button class="tab active" data-mode="photo">ছবি (300×300)</button>
-  <button class="tab" data-mode="sign">সিগনেচার (300×80)</button>
+<div class="chips" role="group" aria-label="মাপ নির্বাচন">
+  <button class="chip active" data-mode="photo">ছবি (300×300)</button>
+  <button class="chip" data-mode="sign">সিগনেচার (300×80)</button>
+  <button class="chip" data-mode="custom">কাস্টম মাপ</button>
 </div>
 
-<div class="drop" id="drop">
-  <p>ছবি এখানে টেনে আনুন<br><span>অথবা ক্লিক করে বেছে নিন (JPG/PNG)</span></p>
-  <input type="file" id="file" accept="image/*" hidden>
-</div>
+<button class="adv-toggle" id="advBtn" aria-expanded="false" aria-controls="advPanel">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  অতিরিক্ত সেটিংস
+</button>
 
-<div class="crop-area" id="cropArea" hidden><img id="cropImg" alt="crop"></div>
-
-<div class="actions" id="actions" hidden>
-  <button class="btn ghost" id="zoomOut" title="ছোট করুন">−</button>
-  <button class="btn ghost" id="zoomIn" title="বড় করুন">+</button>
-  <button class="btn" id="apply">✓ ক্রপ করুন</button>
-  <button class="btn ghost" id="cancel">বাতিল</button>
-</div>
-
-<div class="result" id="result" hidden>
-  <div class="preview-box"><img id="preview" alt="preview"></div>
-  <div class="info">
-    <p>মাপ: <b id="dims">300×300</b> পিক্সেল</p>
-    <p>সাইজ: <b id="size">—</b> <span id="limitNote"></span></p>
-    <a id="download" class="btn" download>ডাউনলোড করুন</a>
-    <button id="again" class="btn ghost">অন্য ছবি</button>
+<div class="adv-panel" id="advPanel" hidden>
+  <div class="row2">
+    <div class="field"><label for="widthIn">প্রস্থ (px)</label><input type="number" id="widthIn" min="10" max="4000" placeholder="500"></div>
+    <div class="field"><label for="heightIn">উচ্চতা (px)</label><input type="number" id="heightIn" min="10" max="4000" placeholder="300"></div>
+  </div>
+  <p class="error" id="dimErr" hidden>সঠিক মাপ লিখুন।</p>
+  <label class="switch"><input type="checkbox" id="lockToggle"> অনুপাত লক করুন</label>
+  <div class="row2">
+    <div class="field"><label for="formatSel">ফাইল ফরম্যাট</label><select id="formatSel"><option value="jpg">JPG</option><option value="png">PNG</option></select></div>
+    <div class="field"><label for="targetIn">লক্ষ্য ফাইল সাইজ (KB, ঐচ্ছিক)</label><input type="number" id="targetIn" min="5" max="1024" placeholder="100"></div>
+  </div>
+  <div class="field"><label for="qualityRange">ছবির মান: <span id="qualityVal">90%</span></label><input type="range" id="qualityRange" min="50" max="100" value="90"></div>
+  <div class="row2">
+    <button class="btn ghost" id="rotateBtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> ঘোরান</button>
+    <button class="btn ghost" id="flipHBtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M12 20v2M12 14v2M12 8v2M12 2v2"/></svg> আড়াআড়ি উল্টান</button>
+    <button class="btn ghost" id="flipVBtn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3M20 12h2M14 12h2M8 12h2M2 12h2"/></svg> উপর-নিচ উল্টান</button>
   </div>
 </div>
 
-<p class="privacy">🔒 আপনার ছবি ব্রাউজারেই প্রসেস হয় — সার্ভারে আপলোড হয় না।</p>
+<div class="drop" id="drop">
+  <p id="dropTitle">ছবি এখানে টেনে আনুন</p>
+  <span id="dropHint">অথবা ক্লিক করে বেছে নিন (JPG/PNG) — ডেস্কটপে Ctrl+V paste ও চলবে</span>
+  <input type="file" id="file" accept="image/jpeg,image/png,image/*" hidden>
+</div>
+<p class="error" id="err" hidden></p>
+<p class="notice" id="notice" hidden>ছবিটি অনেক বড়। প্রসেস করতে কিছুটা সময় লাগতে পারে।</p>
+
+<div id="cropWrap" hidden>
+  <div class="crop-area"><img id="cropImg" alt="ক্রপ করার জন্য ছবি"></div>
+  <div class="toolbar">
+    <button class="tool-btn" id="zoomOutBtn" type="button" aria-label="জুম কমান" title="জুম কমান (−)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+    <div class="zoom-wrap"><input type="range" id="zoomRange" min="0.1" max="3" step="0.05" value="1" aria-label="জুম স্লাইডার"></div>
+    <button class="tool-btn" id="zoomInBtn" type="button" aria-label="জুম বাড়ান" title="জুম বাড়ান (+)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="tool-btn" id="resetCropBtn" type="button" aria-label="ক্রপ রিসেট করুন" title="ক্রপ রিসেট করুন"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
+  </div>
+  <p class="kbd-hint">কীবোর্ড: তীর চিহ্ন = সরান · +/− = জুম · R = ঘোরান</p>
+  <div class="btn-row"><button class="btn" id="applyBtn" type="button">ক্রপ করুন</button></div>
+</div>
+
+<div class="result" id="result" hidden>
+  <div class="compare">
+    <figure><div class="box"><img id="origImg" alt="মূল ছবি"></div><figcaption>মূল ছবি</figcaption></figure>
+    <figure><div class="box"><img id="finalImg" alt="প্রস্তুত ছবি"></div><figcaption>প্রস্তুত ছবি</figcaption></figure>
+  </div>
+  <div class="info">
+    <p>মাপ: <b id="infoDims">—</b> <button class="mini-btn" id="copyDimsBtn" type="button">মাপ কপি করুন</button></p>
+    <p>ফাইল: <b id="infoFormat">JPG</b></p>
+    <p>সাইজ: <b id="infoSize">—</b></p>
+  </div>
+  <p class="error" id="sizeWarn" hidden></p>
+  <div class="btn-row">
+    <a class="btn" id="downloadBtn" download>ডাউনলোড করুন</a>
+    <button class="btn ghost" id="recropBtn" type="button">আবার ক্রপ করুন</button>
+    <button class="btn ghost" id="replaceBtn" type="button">অন্য ছবি নির্বাচন করুন</button>
+    <button class="btn ghost" id="resetAllBtn" type="button">সব রিসেট করুন</button>
+  </div>
+  <p class="feedback" id="feedback"></p>
+</div>
+
+<section class="guide">
+  <h2>কীভাবে ব্যবহার করবেন?</h2>
+  <ol>
+    <li>ছবি বা সিগনেচার নির্বাচন করুন</li>
+    <li>প্রয়োজনমতো ক্রপ ও মাপ ঠিক করুন</li>
+    <li>ডাউনলোড করুন</li>
+  </ol>
+  <h2>কোন মাপ ব্যবহার করবেন?</h2>
+  <p>এই টুলে দ্রুত ব্যবহারের জন্য 300 × 300 px এবং 300 × 80 px প্রিসেট দেওয়া হয়েছে। নির্দিষ্ট ফর্মের নির্দেশনা অনুযায়ী মাপ যাচাই করুন।</p>
+  <p class="privacy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> ব্রাউজারেই প্রসেস করা হয় — আপনার ছবি সার্ভারে আপলোড করা হয় না।</p>
+</section>
 </main>
-<footer>© 2026 সহজটুলস · ফ্রি বাংলা অনলাইন টুলস</footer>
+
+<footer>© 2026 সহজটুলস · <a href="/about/">আমাদের সম্পর্কে</a> · <a href="/privacy/">প্রাইভেসি</a></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
-<script src="js/app.js"></script>
 <script src="/js/main.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
